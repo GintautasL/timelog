@@ -1,5 +1,6 @@
 import axios from "axios";
 import { urls } from "./config";
+axios.defaults.headers.post["Access-Control-Allow-Origin"] = "*";
 
 export const loginRequest = (data) =>
   axios

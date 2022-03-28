@@ -39,9 +39,9 @@ export const Login = () => {
       password: "",
     },
   });
-  const onSubmit = async (data) => {
+  const onSubmit = handleSubmit(async (data) => {
     await loginRequest(data);
-  };
+  });
 
   return (
     <Container component="main" maxWidth="xs">
@@ -60,12 +60,7 @@ export const Login = () => {
         <Typography component="h1" variant="h5">
           Prisijungti
         </Typography>
-        <Box
-          component="form"
-          onSubmit={handleSubmit(onSubmit)}
-          noValidate
-          sx={{ mt: 1 }}
-        >
+        <Box component="form" onSubmit={onSubmit} sx={{ mt: 1 }}>
           <Controller
             name="email"
             control={control}
