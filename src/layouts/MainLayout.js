@@ -15,16 +15,17 @@ import { useForm, Controller } from "react-hook-form"
 import { loginRequest } from "../requests"
 import { Paper } from "@mui/material"
 import { Header } from "../components/Header"
+import { Outlet } from "react-router-dom"
 
-export const MainLayout = ({ children }) => {
+export const MainLayout = () => {
   const token = window.localStorage.getItem("token")
   if (token) {
     return (
       <Box>
         <Header />
-        {children}
+        <Outlet />
       </Box>
     )
   }
-  return <>{children}</>
+  return <Outlet />
 }

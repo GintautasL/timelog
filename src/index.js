@@ -14,7 +14,7 @@ render(
   <ThemeProvider theme={theme}>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<MainLayout />}>
+        <Route element={<MainLayout />}>
           <Route path="/login" element={<Login />} />
           <Route path="*" element={<div>404 not found</div>} />
         </Route>

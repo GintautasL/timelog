@@ -16,10 +16,8 @@ const pages = ["Products", "Pricing", "Blog"]
 const settings = ["Profile", "Account", "Dashboard", "Logout"]
 
 export const Header = () => {
-  const [anchorElNav, setAnchorElNav] =
-    (React.useState < null) | (HTMLElement > null)
-  const [anchorElUser, setAnchorElUser] =
-    (React.useState < null) | (HTMLElement > null)
+  const [anchorElNav, setAnchorElNav] = React.useState(null)
+  const [anchorElUser, setAnchorElUser] = React.useState(null)
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget)
@@ -37,6 +35,7 @@ export const Header = () => {
   }
 
   return (
+    // <div>aahaha</div>
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
