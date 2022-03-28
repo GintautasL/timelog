@@ -12,6 +12,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { useForm, Controller } from "react-hook-form";
+import { loginRequest } from "../requests";
 
 function Copyright(props) {
   return (
@@ -38,7 +39,9 @@ export const Login = () => {
       password: "",
     },
   });
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = async (data) => {
+    await loginRequest(data);
+  };
 
   return (
     <Container component="main" maxWidth="xs">
