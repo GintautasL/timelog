@@ -13,6 +13,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { useForm, Controller } from "react-hook-form";
 import { loginRequest } from "../requests";
+import { Paper } from "@mui/material";
 
 function Copyright(props) {
   return (
@@ -44,76 +45,86 @@ export const Login = () => {
   });
 
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <Box
-        sx={{
-          marginTop: 8,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Prisijungti
-        </Typography>
-        <Box component="form" onSubmit={onSubmit} sx={{ mt: 1 }}>
-          <Controller
-            name="email"
-            control={control}
-            render={({ field }) => (
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="email"
-                label="Pašto adresas"
-                name="email"
-                autoComplete="email"
-                autoFocus
-                {...field}
-              />
-            )}
-          />
-          <Controller
-            name="password"
-            control={control}
-            render={({ field }) => (
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Slaptažodis"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-                {...field}
-              />
-            )}
-          />
-
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-          >
+    <Container
+      component="main"
+      maxWidth="xs"
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        height: 1,
+      }}
+    >
+      <Paper elevation={3} sx={{ padding: "24px" }}>
+        <CssBaseline />
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
             Prisijungti
-          </Button>
-          <Grid container>
-            <Grid item>
-              <Link href="#" variant="body2">
-                {"Registrotis"}
-              </Link>
+          </Typography>
+          <Box component="form" onSubmit={onSubmit} sx={{ mt: 1 }}>
+            <Controller
+              name="email"
+              control={control}
+              render={({ field }) => (
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="email"
+                  label="Pašto adresas"
+                  name="email"
+                  autoComplete="email"
+                  autoFocus
+                  {...field}
+                />
+              )}
+            />
+            <Controller
+              name="password"
+              control={control}
+              render={({ field }) => (
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="password"
+                  label="Slaptažodis"
+                  type="password"
+                  id="password"
+                  autoComplete="current-password"
+                  {...field}
+                />
+              )}
+            />
+
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Prisijungti
+            </Button>
+            <Grid container>
+              <Grid item>
+                <Link href="#" variant="body2">
+                  {"Registrotis"}
+                </Link>
+              </Grid>
             </Grid>
-          </Grid>
+          </Box>
         </Box>
-      </Box>
-      <Copyright sx={{ mt: 8, mb: 4 }} />
+        <Copyright sx={{ mt: 8, mb: 4 }} />
+      </Paper>
     </Container>
   );
 };

@@ -6,7 +6,9 @@ export const loginRequest = (data) =>
   axios
     .post(urls.login, data)
     .then(function (response) {
-      console.log(response);
+      console.log(response.data.token);
+      window.localStorage.setItem("token", response.data.token);
+      window.localStorage.setItem("refreshToken", response.data.refreshToken);
     })
     .catch(function (error) {
       console.log(error);
