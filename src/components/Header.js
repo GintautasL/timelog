@@ -12,8 +12,8 @@ import Button from "@mui/material/Button"
 import Tooltip from "@mui/material/Tooltip"
 import MenuItem from "@mui/material/MenuItem"
 
-const pages = ["Products", "Pricing", "Blog"]
-const settings = ["Profile", "Account", "Dashboard", "Logout"]
+const pages = ["Mano veiklos", "Pridėti naują"]
+const settings = ["Profile", "Logout"]
 
 export const Header = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null)

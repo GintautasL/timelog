@@ -14,3 +14,23 @@ export const loginRequest = (data) =>
     .catch(function (error) {
       console.log(error)
     })
+
+export const getMyActivities = (data) =>
+  axios
+    .get(urls.getMyActivities, data)
+    .then(function (response) {
+      console.log(response.data)
+    })
+    .catch(function (error) {
+      console.log(error)
+    })
+
+export const registerRequest = (data) =>
+  axios
+    .post(urls.register, data)
+    .then(function (response) {
+      window.location.href = "/login"
+    })
+    .catch(function (error) {
+      console.log(error)
+    })
