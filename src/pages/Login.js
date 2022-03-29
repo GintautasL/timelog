@@ -14,6 +14,7 @@ import Container from "@mui/material/Container"
 import { useForm, Controller } from "react-hook-form"
 import { loginRequest } from "../requests"
 import { Paper } from "@mui/material"
+import { useEffect } from "react"
 
 function Copyright(props) {
   return (
@@ -43,6 +44,13 @@ export const Login = () => {
   const onSubmit = handleSubmit(async (data) => {
     await loginRequest(data)
   })
+
+  useEffect(() => {
+    const token = window.localStorage.getItem("token")
+    if (token) {
+      window.location.href = "/"
+    }
+  }, [])
 
   return (
     <Container

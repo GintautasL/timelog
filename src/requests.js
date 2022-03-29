@@ -1,6 +1,6 @@
 import axios from "axios"
 import { urls } from "./config"
-axios.defaults.headers.post["Access-Control-Allow-Origin"] = "*"
+// axios.defaults.headers.post["Access-Control-Allow-Origin"] = "*"
 
 export const loginRequest = (data) =>
   axios
@@ -17,9 +17,10 @@ export const loginRequest = (data) =>
 
 export const getMyActivities = (data) =>
   axios
-    .get(urls.getMyActivities, data)
+    .get(urls.getMyActivities)
     .then(function (response) {
-      console.log(response.data)
+      console.log("response.data")
+      return response.data
     })
     .catch(function (error) {
       console.log(error)
@@ -39,6 +40,7 @@ export const logoutRequest = (data) =>
   axios
     .post(urls.logout, data)
     .then(function (response) {
+      window.localStorage.clear()
       window.location.href = "/login"
     })
     .catch(function (error) {

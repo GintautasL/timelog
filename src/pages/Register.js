@@ -46,7 +46,8 @@ export const Register = () => {
     },
   })
   const onSubmit = handleSubmit(async (data) => {
-    await registerRequest(data)
+    const extendedData = { ...data, position: "default" }
+    await registerRequest(extendedData)
   })
 
   return (
@@ -142,23 +143,6 @@ export const Register = () => {
                       type="password"
                       id="password"
                       autoComplete="new-password"
-                      {...field}
-                    />
-                  )}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <Controller
-                  name="position"
-                  control={control}
-                  render={({ field }) => (
-                    <TextField
-                      required
-                      fullWidth
-                      name="position"
-                      label="Pozicija"
-                      id="position"
-                      autoComplete="intern"
                       {...field}
                     />
                   )}

@@ -12,6 +12,8 @@ import Button from "@mui/material/Button"
 import Tooltip from "@mui/material/Tooltip"
 import MenuItem from "@mui/material/MenuItem"
 
+import { logoutRequest } from "../requests"
+
 const pages = ["Mano veiklos", "Pridėti naują"]
 const settings = ["Profile", "Logout"]
 
@@ -30,7 +32,10 @@ export const Header = () => {
     setAnchorElNav(null)
   }
 
-  const handleCloseUserMenu = () => {
+  const handleAction = async (action) => {
+    if (action == "Logout") {
+      await logoutRequest()
+    }
     setAnchorElUser(null)
   }
 
@@ -124,10 +129,10 @@ export const Header = () => {
                 horizontal: "right",
               }}
               open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
+              onClose={handleAction}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                <MenuItem key={setting} onClick={() => handleAction(setting)}>
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}

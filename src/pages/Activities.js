@@ -9,22 +9,19 @@ import Paper from "@mui/material/Paper"
 import { getMyActivities } from "../requests"
 import { useState, useEffect } from "react"
 
-const url = getMyActivities
-
-const useFetch = (url) => {
+const useFetch = () => {
   const [loading, setLoading] = useState(true)
   const [activities, setActivities] = useState([])
 
   const getActivities = async () => {
-    const response = await fetch(url)
-    const activities = await response.json()
+    const activities = await getMyActivities()
     setActivities(activities)
     setLoading(false)
   }
 
   useEffect(() => {
     getActivities()
-  }, [url])
+  }, [])
   return { loading, activities }
 }
 
@@ -40,7 +37,7 @@ const rows = [
 ]
 
 export const Activities = () => {
-  const { loading, activities } = useFetch(url)
+  const { loading, activities } = useFetch()
 
   console.log(activities)
   return (
