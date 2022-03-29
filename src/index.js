@@ -16,6 +16,7 @@ render(
       <Routes>
         <Route element={<MainLayout />}>
           <Route path="/login" element={<Login />} />
+          <Route path="/user" element={<div>user dashboard</div>} />
           <Route path="*" element={<div>404 not found</div>} />
         </Route>
       </Routes>

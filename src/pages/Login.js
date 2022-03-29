@@ -1,19 +1,19 @@
-import * as React from "react";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import { useForm, Controller } from "react-hook-form";
-import { loginRequest } from "../requests";
-import { Paper } from "@mui/material";
+import * as React from "react"
+import Avatar from "@mui/material/Avatar"
+import Button from "@mui/material/Button"
+import CssBaseline from "@mui/material/CssBaseline"
+import TextField from "@mui/material/TextField"
+import FormControlLabel from "@mui/material/FormControlLabel"
+import Checkbox from "@mui/material/Checkbox"
+import Link from "@mui/material/Link"
+import Grid from "@mui/material/Grid"
+import Box from "@mui/material/Box"
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined"
+import Typography from "@mui/material/Typography"
+import Container from "@mui/material/Container"
+import { useForm, Controller } from "react-hook-form"
+import { loginRequest } from "../requests"
+import { Paper } from "@mui/material"
 
 function Copyright(props) {
   return (
@@ -30,7 +30,7 @@ function Copyright(props) {
       {new Date().getFullYear()}
       {"."}
     </Typography>
-  );
+  )
 }
 
 export const Login = () => {
@@ -39,10 +39,10 @@ export const Login = () => {
       email: "",
       password: "",
     },
-  });
+  })
   const onSubmit = handleSubmit(async (data) => {
-    await loginRequest(data);
-  });
+    await loginRequest(data)
+  })
 
   return (
     <Container
@@ -126,5 +126,5 @@ export const Login = () => {
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Paper>
     </Container>
-  );
-};
+  )
+}
