@@ -34,3 +34,13 @@ export const registerRequest = (data) =>
     .catch(function (error) {
       console.log(error)
     })
+
+export const logoutRequest = (data) =>
+  axios
+    .post(urls.logout, data)
+    .then(function (response) {
+      window.location.href = "/login"
+    })
+    .catch(function (error) {
+      console.log(error)
+    })
