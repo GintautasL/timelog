@@ -15,6 +15,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles"
 
 import { registerRequest } from "../requests"
 import { Paper } from "@mui/material"
+import { useForm, Controller } from "react-hook-form"
 
 function Copyright(props) {
   return (
@@ -26,7 +27,7 @@ function Copyright(props) {
     >
       {"Copyright © "}
       <Link color="inherit" href="https://mui.com/">
-        TimeLog
+        Timelog
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -35,14 +36,18 @@ function Copyright(props) {
 }
 
 export const Register = () => {
-  const handleSubmit = (event) => {
-    event.preventDefault()
-    const data = new FormData(event.currentTarget)
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    })
-  }
+  const { control, handleSubmit } = useForm({
+    defaultValues: {
+      first_name: "",
+      last_name: "",
+      position: "",
+      email: "",
+      password: "",
+    },
+  })
+  const onSubmit = handleSubmit(async (data) => {
+    await registerRequest(data)
+  })
 
   return (
     <Container
@@ -70,53 +75,93 @@ export const Register = () => {
           <Typography component="h1" variant="h5">
             Registruotis
           </Typography>
-          <Box
-            component="form"
-            noValidate
-            onSubmit={handleSubmit}
-            sx={{ mt: 3 }}
-          >
+          <Box component="form" noValidate onSubmit={onSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
-                <TextField
-                  autoComplete="given-name"
-                  name="firstName"
-                  required
-                  fullWidth
-                  id="firstName"
-                  label="Vardas"
-                  autoFocus
+                <Controller
+                  name="first_name"
+                  control={control}
+                  render={({ field }) => (
+                    <TextField
+                      autoComplete="given-name"
+                      name="firstName"
+                      required
+                      fullWidth
+                      id="firstName"
+                      label="Vardas"
+                      autoFocus
+                      {...field}
+                    />
+                  )}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  id="lastName"
-                  label="Pavardė"
-                  name="lastName"
-                  autoComplete="family-name"
+                <Controller
+                  name="last_name"
+                  control={control}
+                  render={({ field }) => (
+                    <TextField
+                      required
+                      fullWidth
+                      id="lastName"
+                      label="Pavardė"
+                      name="lastName"
+                      autoComplete="family-name"
+                      {...field}
+                    />
+                  )}
                 />
               </Grid>
               <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="email"
-                  label="Pašto adresas"
+                <Controller
                   name="email"
-                  autoComplete="email"
+                  control={control}
+                  render={({ field }) => (
+                    <TextField
+                      required
+                      fullWidth
+                      id="email"
+                      label="Pašto adresas"
+                      name="email"
+                      autoComplete="email"
+                      {...field}
+                    />
+                  )}
                 />
               </Grid>
               <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
+                <Controller
                   name="password"
-                  label="Slaptažodis"
-                  type="password"
-                  id="password"
-                  autoComplete="new-password"
+                  control={control}
+                  render={({ field }) => (
+                    <TextField
+                      required
+                      fullWidth
+                      name="password"
+                      label="Slaptažodis"
+                      type="password"
+                      id="password"
+                      autoComplete="new-password"
+                      {...field}
+                    />
+                  )}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <Controller
+                  name="position"
+                  control={control}
+                  render={({ field }) => (
+                    <TextField
+                      required
+                      fullWidth
+                      name="position"
+                      label="Pozicija"
+                      id="position"
+                      autoComplete="intern"
+                      {...field}
+                    />
+                  )}
                 />
               </Grid>
             </Grid>
@@ -130,7 +175,7 @@ export const Register = () => {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/login" variant="body2">
                   Prisijungti
                 </Link>
               </Grid>
