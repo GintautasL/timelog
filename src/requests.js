@@ -76,9 +76,9 @@ export const myActivityRequest = (id) =>
       console.log(error)
     })
 
-export const editMyActivity = (data) =>
+export const editMyActivity = (data, id) =>
   axios
-    .put(urls.userGetSingleActivity, data)
+    .put(urls.userGetSingleActivity.replace(":id", id), data)
     .then(function (response) {})
     .catch(function (error) {
       console.log(error)

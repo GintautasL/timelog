@@ -11,6 +11,7 @@ import { getMyActivities } from "../requests"
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import Chip from "@mui/material/Chip"
+import { format } from "date-fns"
 
 const useFetch = () => {
   const [loading, setLoading] = useState(true)
@@ -60,7 +61,7 @@ export const Activities = () => {
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell component="th" scope="row">
-                    {activity.date}
+                    {format(new Date(activity?.date), "yyyy-MM-dd")}
                   </TableCell>
                   <TableCell>{activity.timeSpent}</TableCell>
                   <TableCell>{activity.created_at}</TableCell>

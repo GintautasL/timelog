@@ -21,6 +21,7 @@ import DesktopDatePicker from "@mui/lab/DesktopDatePicker"
 import Stack from "@mui/material/Stack"
 import AdapterDateFns from "@mui/lab/AdapterDateFns"
 import LocalizationProvider from "@mui/lab/LocalizationProvider"
+import { format } from "date-fns"
 
 import { myActivityRequest, editMyActivity } from "../requests"
 
@@ -40,18 +41,16 @@ const useFetch = (id) => {
   return { loading, activity }
 }
 
-export const EditActivity = () => {
-  // entry
-  const { id } = useParams()
-  const { loading, activity } = useFetch(id)
-
+const EditActivityComponent = ({ activity, id }) => {
   const { control, handleSubmit } = useForm({
     defaultValues: {
-      date: activity.date,
+      date: new Date(activity.date),
       timeSpent: activity.timeSpent,
       description: activity.description,
     },
   })
+  console.log(new Date(activity.date))
+
   const chipColor = () => {
     if (activity.is_confirmed == 1) {
       return "success"
@@ -68,14 +67,9 @@ export const EditActivity = () => {
     }
   }
 
-  const [value, setValue] = React.useState(new Date("2014-08-18T21:11:54")) //date
-
-  const handleChange = (newValue) => {
-    setValue(newValue)
-  }
-
   const onSubmit = handleSubmit(async (data) => {
-    await editMyActivity(data)
+    const finalData = { ...data, date: format(data.date, "yyyy-MM-dd") }
+    await editMyActivity(finalData, id)
   })
 
   return (
@@ -89,134 +83,118 @@ export const EditActivity = () => {
         height: 1,
       }}
     >
-      {loading ? (
-        <h2>loading...</h2>
-      ) : (
-        <Paper elevation={3} sx={{ padding: "24px" }}>
-          <CssBaseline />
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <Typography component="h1" variant="h5">
-              MANO VEIKLA
-            </Typography>
-            <Box component="form" noValidate onSubmit={onSubmit} sx={{ mt: 3 }}>
-              <Grid container spacing={2}>
-                {/* <Grid item xs={12} sm={6}>
+      <Paper elevation={3} sx={{ padding: "24px" }}>
+        <CssBaseline />
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Typography component="h1" variant="h5">
+            MANO VEIKLA
+          </Typography>
+          <Box component="form" noValidate onSubmit={onSubmit} sx={{ mt: 3 }}>
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
                   <Controller
                     name="date"
                     control={control}
                     render={({ field }) => (
-                      <TextField
-                        defaultValue={activity.date}
-                        autoComplete="given-date"
-                        name="date"
-                        required
-                        fullWidth
-                        id="date"
-                        label="Data"
-                        autoFocus
+                      <DesktopDatePicker
+                        label="Psirinkti datą"
+                        inputFormat="MM/dd/yyyy"
+                        renderInput={(params) => <TextField {...params} />}
                         {...field}
                       />
                     )}
                   />
-                </Grid> */}
-
-                <Grid item xs={12} sm={6}>
-                  <LocalizationProvider dateAdapter={AdapterDateFns}>
-                    <Controller
-                      name="date"
-                      control={control}
-                      render={({ field }) => (
-                        <DesktopDatePicker
-                          label="Date desktop"
-                          defaultValue={activity.date}
-                          inputFormat="MM/dd/yyyy"
-                          renderInput={(params) => <TextField {...params} />}
-                          {...field}
-                        />
-                      )}
-                    />
-                  </LocalizationProvider>
-                </Grid>
-
-                <Grid item xs={12} sm={6}>
-                  <Controller
-                    name="timeSpent"
-                    control={control}
-                    render={({ field }) => (
-                      <TextField
-                        defaultValue={activity.timeSpent}
-                        required
-                        fullWidth
-                        id="timeSpent"
-                        label="Pradirbtas laikas"
-                        name="timeSpent"
-                        autoComplete="timeSpent"
-                        {...field}
-                      />
-                    )}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <Controller
-                    name="description"
-                    control={control}
-                    render={({ field }) => (
-                      <TextField
-                        defaultValue={activity.description}
-                        multiline
-                        fullWidth
-                        id="description"
-                        label="Aprašymas"
-                        name="description"
-                        autoComplete="description"
-                        InputProps={{
-                          readOnly: true,
-                        }}
-                        {...field}
-                      />
-                    )}
-                  />
-                </Grid>
-
-                <Grid item xs={4} sx={{ paddingLeft: 50 }}>
-                  <Controller
-                    name="is_confirmed"
-                    control={control}
-                    render={({ field }) => (
-                      <Chip
-                        label={chipText(activity.is_confirmed)}
-                        size="50px"
-                        sx={{
-                          height: 54,
-                          width: 128,
-                          fontSize: 16,
-                          ml: 8,
-                        }}
-                        color={chipColor(activity.is_confirmed)}
-                        {...field}
-                      />
-                    )}
-                  />
-                </Grid>
-                <Button
-                  type="submit"
-                  justifyContent="left"
-                  variant="contained"
-                  sx={{ mt: 3, mb: 2, ml: 2 }}
-                >
-                  Patvirtinti pakeitimus
-                </Button>
+                </LocalizationProvider>
               </Grid>
-            </Box>
+
+              <Grid item xs={12} sm={6}>
+                <Controller
+                  name="timeSpent"
+                  control={control}
+                  render={({ field }) => (
+                    <TextField
+                      defaultValue={activity.timeSpent}
+                      required
+                      fullWidth
+                      id="timeSpent"
+                      label="Pradirbtas laikas"
+                      name="timeSpent"
+                      autoComplete="timeSpent"
+                      {...field}
+                    />
+                  )}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <Controller
+                  name="description"
+                  control={control}
+                  render={({ field }) => (
+                    <TextField
+                      defaultValue={activity.description}
+                      multiline
+                      fullWidth
+                      id="description"
+                      label="Aprašymas"
+                      name="description"
+                      autoComplete="description"
+                      {...field}
+                    />
+                  )}
+                />
+              </Grid>
+
+              <Grid item xs={4} sx={{ paddingLeft: 50 }}>
+                <Controller
+                  name="is_confirmed"
+                  control={control}
+                  render={({ field }) => (
+                    <Chip
+                      label={chipText(activity.is_confirmed)}
+                      size="50px"
+                      sx={{
+                        height: 54,
+                        width: 128,
+                        fontSize: 16,
+                        ml: 8,
+                      }}
+                      color={chipColor(activity.is_confirmed)}
+                      {...field}
+                    />
+                  )}
+                />
+              </Grid>
+              <Button
+                type="submit"
+                justifyContent="left"
+                variant="contained"
+                sx={{ mt: 3, mb: 2, ml: 2 }}
+              >
+                Patvirtinti pakeitimus
+              </Button>
+            </Grid>
           </Box>
-        </Paper>
-      )}
+        </Box>
+      </Paper>
     </Container>
+  )
+}
+
+export const EditActivity = () => {
+  const { id } = useParams()
+  const { loading, activity } = useFetch(id)
+  console.log(loading, activity, id)
+
+  return !loading ? (
+    <EditActivityComponent activity={activity} id={id} />
+  ) : (
+    "Loading..."
   )
 }
