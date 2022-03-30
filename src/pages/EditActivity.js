@@ -17,6 +17,10 @@ import { useForm, Controller } from "react-hook-form"
 import { useEffect, useState } from "react"
 import Chip from "@mui/material/Chip"
 import { useParams } from "react-router-dom"
+import DesktopDatePicker from "@mui/lab/DesktopDatePicker"
+import Stack from "@mui/material/Stack"
+import AdapterDateFns from "@mui/lab/AdapterDateFns"
+import LocalizationProvider from "@mui/lab/LocalizationProvider"
 
 import { myActivityRequest, editMyActivity } from "../requests"
 
@@ -37,6 +41,7 @@ const useFetch = (id) => {
 }
 
 export const EditActivity = () => {
+  // entry
   const { id } = useParams()
   const { loading, activity } = useFetch(id)
 
@@ -61,6 +66,12 @@ export const EditActivity = () => {
     } else {
       return "Nepatvirtintas"
     }
+  }
+
+  const [value, setValue] = React.useState(new Date("2014-08-18T21:11:54")) //date
+
+  const handleChange = (newValue) => {
+    setValue(newValue)
   }
 
   const onSubmit = handleSubmit(async (data) => {
@@ -95,7 +106,7 @@ export const EditActivity = () => {
             </Typography>
             <Box component="form" noValidate onSubmit={onSubmit} sx={{ mt: 3 }}>
               <Grid container spacing={2}>
-                <Grid item xs={12} sm={6}>
+                {/* <Grid item xs={12} sm={6}>
                   <Controller
                     name="date"
                     control={control}
@@ -113,7 +124,26 @@ export const EditActivity = () => {
                       />
                     )}
                   />
+                </Grid> */}
+
+                <Grid item xs={12} sm={6}>
+                  <LocalizationProvider dateAdapter={AdapterDateFns}>
+                    <Controller
+                      name="date"
+                      control={control}
+                      render={({ field }) => (
+                        <DesktopDatePicker
+                          label="Date desktop"
+                          defaultValue={activity.date}
+                          inputFormat="MM/dd/yyyy"
+                          renderInput={(params) => <TextField {...params} />}
+                          {...field}
+                        />
+                      )}
+                    />
+                  </LocalizationProvider>
                 </Grid>
+
                 <Grid item xs={12} sm={6}>
                   <Controller
                     name="timeSpent"

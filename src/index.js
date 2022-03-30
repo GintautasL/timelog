@@ -10,24 +10,28 @@ import { MyProfile } from "./pages/MyProfile"
 import { createTheme, ThemeProvider } from "@mui/material/styles"
 import * as Interceptors from "./interceptors"
 import { MainLayout } from "./layouts/MainLayout"
+import AdapterDateFns from "@mui/lab/AdapterDateFns"
+import LocalizationProvider from "@mui/lab/LocalizationProvider"
 
 const theme = createTheme()
 
 const rootElement = document.getElementById("root")
 render(
   <ThemeProvider theme={theme}>
-    <BrowserRouter>
-      <Routes>
-        <Route element={<MainLayout />}>
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/user" element={<MyProfile />} />
-          <Route path="/activities" element={<Activities />} />
-          <Route path="/activity/:id" element={<EditActivity />} />
-          <Route path="*" element={<div>404 not found</div>} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <LocalizationProvider dateAdapter={AdapterDateFns}>
+      <BrowserRouter>
+        <Routes>
+          <Route element={<MainLayout />}>
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/user" element={<MyProfile />} />
+            <Route path="/activities" element={<Activities />} />
+            <Route path="/activity/:id" element={<EditActivity />} />
+            <Route path="*" element={<div>404 not found</div>} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </LocalizationProvider>
   </ThemeProvider>,
   rootElement
 )

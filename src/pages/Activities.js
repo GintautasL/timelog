@@ -43,10 +43,10 @@ export const Activities = () => {
             <TableHead>
               <TableRow>
                 <TableCell>Data</TableCell>
-                <TableCell align="right">Pradirbtas laikas</TableCell>
-                <TableCell align="right">Kada sukurtas</TableCell>
-                <TableCell align="right">Aprašymas</TableCell>
-                <TableCell align="right">Patvirtinta</TableCell>
+                <TableCell>Pradirbtas laikas</TableCell>
+                <TableCell>Kada sukurtas</TableCell>
+                <TableCell>Aprašymas</TableCell>
+                <TableCell>Ar Patvirtinta</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -62,10 +62,9 @@ export const Activities = () => {
                   <TableCell component="th" scope="row">
                     {activity.date}
                   </TableCell>
-                  <TableCell align="right">{activity.timeSpent}</TableCell>
-                  <TableCell align="right">{activity.created_at}</TableCell>
+                  <TableCell>{activity.timeSpent}</TableCell>
+                  <TableCell>{activity.created_at}</TableCell>
                   <TableCell
-                    align="right"
                     sx={{
                       maxWidth: 100,
                       overflow: "hidden",
@@ -75,7 +74,7 @@ export const Activities = () => {
                   >
                     {activity.description}
                   </TableCell>
-                  <TableCell align="right">
+                  <TableCell>
                     <Chip label="primary" color="primary" />
                   </TableCell>
                 </TableRow>
