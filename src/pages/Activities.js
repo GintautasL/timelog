@@ -9,6 +9,8 @@ import Paper from "@mui/material/Paper"
 import Container from "@mui/material/Container"
 import { getMyActivities } from "../requests"
 import { useState, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
+import Chip from "@mui/material/Chip"
 
 const useFetch = () => {
   const [loading, setLoading] = useState(true)
@@ -26,18 +28,8 @@ const useFetch = () => {
   return { loading, activities }
 }
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein }
-}
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-]
-
 export const Activities = () => {
+  const navigate = useNavigate()
   const { loading, activities } = useFetch()
 
   console.log(activities)
@@ -58,18 +50,34 @@ export const Activities = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {activities.map((activities) => (
+              {activities.map((activity) => (
                 <TableRow
-                  key={activities.id}
+                  key={activity.id}
+                  hover
+                  onClick={() => {
+                    navigate(`/activity/${activity.id}`)
+                  }}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell component="th" scope="row">
-                    {activities.date}
+                    {activity.date}
                   </TableCell>
-                  <TableCell align="right">{activities.timeSpent}</TableCell>
-                  <TableCell align="right">{activities.created_at}</TableCell>
-                  <TableCell align="right">{activities.description}</TableCell>
-                  <TableCell align="right">{activities.is_confirmed}</TableCell>
+                  <TableCell align="right">{activity.timeSpent}</TableCell>
+                  <TableCell align="right">{activity.created_at}</TableCell>
+                  <TableCell
+                    align="right"
+                    sx={{
+                      maxWidth: 100,
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    {activity.description}
+                  </TableCell>
+                  <TableCell align="right">
+                    <Chip label="primary" color="primary" />
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>

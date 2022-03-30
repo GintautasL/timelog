@@ -5,4 +5,7 @@ export const urls = {
   getMyActivities: `${BASE_URL}/user/activities`,
   register: `${BASE_URL}/users`,
   logout: `${BASE_URL}/logout`,
+  myProfile: `${BASE_URL}/user`,
+  editMyProfile: `${BASE_URL}/user`,
+  userGetSingleActivity: `${BASE_URL}/activity/:id`,
 }

@@ -46,3 +46,40 @@ export const logoutRequest = (data) =>
     .catch(function (error) {
       console.log(error)
     })
+
+export const myProfileRequest = (data) =>
+  axios
+    .get(urls.myProfile)
+    .then(function (response) {
+      //   window.location.href = "/user"
+      return response.data
+    })
+    .catch(function (error) {
+      console.log(error)
+    })
+
+export const editMyProfile = (data) =>
+  axios
+    .put(urls.editMyProfile, data)
+    .then(function (response) {})
+    .catch(function (error) {
+      console.log(error)
+    })
+
+export const myActivityRequest = (id) =>
+  axios
+    .get(urls.userGetSingleActivity.replace(":id", id))
+    .then(function (response) {
+      return response.data
+    })
+    .catch(function (error) {
+      console.log(error)
+    })
+
+export const editMyActivity = (data) =>
+  axios
+    .put(urls.userGetSingleActivity, data)
+    .then(function (response) {})
+    .catch(function (error) {
+      console.log(error)
+    })

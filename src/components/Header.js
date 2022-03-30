@@ -12,7 +12,7 @@ import Button from "@mui/material/Button"
 import Tooltip from "@mui/material/Tooltip"
 import MenuItem from "@mui/material/MenuItem"
 
-import { logoutRequest } from "../requests"
+import { logoutRequest, myProfileRequest, getMyActivities } from "../requests"
 
 const pages = ["Mano veiklos", "Pridėti naują"]
 const settings = ["Profile", "Logout"]
@@ -28,13 +28,22 @@ export const Header = () => {
     setAnchorElUser(event.currentTarget)
   }
 
-  const handleCloseNavMenu = () => {
+  const handleCloseNavMenu = async (action) => {
+    if (action == "Mano veiklos") {
+      window.location.href = "/activities"
+    }
+    if (action == "Pridėti naują") {
+      window.location.href = "/activity/2"
+    }
     setAnchorElNav(null)
   }
 
-  const handleAction = async (action) => {
+  const handleUserMenuAction = async (action) => {
     if (action == "Logout") {
       await logoutRequest()
+    }
+    if (action == "Profile") {
+      window.location.href = "/user"
     }
     setAnchorElUser(null)
   }
@@ -101,7 +110,7 @@ export const Header = () => {
             {pages.map((page) => (
               <Button
                 key={page}
-                onClick={handleCloseNavMenu}
+                onClick={() => handleCloseNavMenu(page)}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
                 {page}
@@ -129,10 +138,13 @@ export const Header = () => {
                 horizontal: "right",
               }}
               open={Boolean(anchorElUser)}
-              onClose={handleAction}
+              onClose={handleUserMenuAction}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={() => handleAction(setting)}>
+                <MenuItem
+                  key={setting}
+                  onClick={() => handleUserMenuAction(setting)}
+                >
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}
