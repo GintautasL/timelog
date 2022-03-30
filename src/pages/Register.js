@@ -16,6 +16,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles"
 import { registerRequest } from "../requests"
 import { Paper } from "@mui/material"
 import { useForm, Controller } from "react-hook-form"
+import { useEffect } from "react"
 
 function Copyright(props) {
   return (
@@ -49,6 +50,13 @@ export const Register = () => {
     const extendedData = { ...data, position: "default" }
     await registerRequest(extendedData)
   })
+
+  useEffect(() => {
+    const token = window.localStorage.getItem("token")
+    if (token) {
+      window.location.href = "/"
+    }
+  }, [])
 
   return (
     <Container
