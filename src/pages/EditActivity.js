@@ -79,7 +79,6 @@ const EditActivityComponent = ({ activity, id }) => {
       sx={{
         display: "flex",
         flexDirection: "column",
-        justifyContent: "center",
         height: 1,
       }}
     >
@@ -120,7 +119,6 @@ const EditActivityComponent = ({ activity, id }) => {
                   control={control}
                   render={({ field }) => (
                     <TextField
-                      defaultValue={activity.timeSpent}
                       required
                       fullWidth
                       id="timeSpent"
@@ -138,7 +136,6 @@ const EditActivityComponent = ({ activity, id }) => {
                   control={control}
                   render={({ field }) => (
                     <TextField
-                      defaultValue={activity.description}
                       multiline
                       fullWidth
                       id="description"
@@ -173,7 +170,6 @@ const EditActivityComponent = ({ activity, id }) => {
               </Grid>
               <Button
                 type="submit"
-                justifyContent="left"
                 variant="contained"
                 sx={{ mt: 3, mb: 2, ml: 2 }}
               >

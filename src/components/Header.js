@@ -14,7 +14,7 @@ import MenuItem from "@mui/material/MenuItem"
 
 import { logoutRequest, myProfileRequest, getMyActivities } from "../requests"
 
-const pages = ["Mano veiklos", "Pridėti naują"]
+const pages = ["Mano veiklos", "Pridėti naują", "Darbuotojai"]
 const settings = ["Profile", "Logout"]
 
 export const Header = () => {
@@ -33,7 +33,10 @@ export const Header = () => {
       window.location.href = "/activities"
     }
     if (action == "Pridėti naują") {
-      window.location.href = "/activity/2"
+      window.location.href = "/activity"
+    }
+    if (action == "Darbuotojai") {
+      window.location.href = "/users"
     }
     setAnchorElNav(null)
   }

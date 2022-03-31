@@ -8,4 +8,7 @@ export const urls = {
   myProfile: `${BASE_URL}/user`,
   editMyProfile: `${BASE_URL}/user`,
   userGetSingleActivity: `${BASE_URL}/activity/:id`,
+  createActivity: `${BASE_URL}/activity`,
+
+  getUsers: `${BASE_URL}/users`,
 }

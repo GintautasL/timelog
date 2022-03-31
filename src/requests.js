@@ -61,7 +61,9 @@ export const myProfileRequest = (data) =>
 export const editMyProfile = (data) =>
   axios
     .put(urls.editMyProfile, data)
-    .then(function (response) {})
+    .then(function (response) {
+      window.location.href = "/activities"
+    })
     .catch(function (error) {
       console.log(error)
     })
@@ -79,7 +81,30 @@ export const myActivityRequest = (id) =>
 export const editMyActivity = (data, id) =>
   axios
     .put(urls.userGetSingleActivity.replace(":id", id), data)
-    .then(function (response) {})
+    .then(function (response) {
+      window.location.href = "/activities"
+    })
+    .catch(function (error) {
+      console.log(error)
+    })
+
+export const createActivity = (data) =>
+  axios
+    .post(urls.createActivity, data)
+    .then(function (response) {
+      window.location.href = "/activities"
+    })
+    .catch(function (error) {
+      console.log(error)
+    })
+
+export const getAllUsers = (data) =>
+  axios
+    .get(urls.getUsers)
+    .then(function (response) {
+      console.log("response.data")
+      return response.data
+    })
     .catch(function (error) {
       console.log(error)
     })
