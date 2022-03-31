@@ -108,3 +108,23 @@ export const getAllUsers = (data) =>
     .catch(function (error) {
       console.log(error)
     })
+
+export const getUserRequest = (id) =>
+  axios
+    .get(urls.getUser.replace(":id", id))
+    .then(function (response) {
+      return response.data
+    })
+    .catch(function (error) {
+      console.log(error)
+    })
+
+export const editUserRequest = (data, id) =>
+  axios
+    .put(urls.getUser.replace(":id", id), data)
+    .then(function (response) {
+      window.location.href = "/users"
+    })
+    .catch(function (error) {
+      console.log(error)
+    })

@@ -95,8 +95,9 @@ export const Users = () => {
                     <Button
                       variant="outlined"
                       startIcon={<EditIcon />}
-                      onClick={() => {
-                        navigate(`users/${user.id}`)
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        navigate(`/users/${user.id}`)
                       }}
                     >
                       Redaguoti

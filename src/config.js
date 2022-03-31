@@ -11,4 +11,5 @@ export const urls = {
   createActivity: `${BASE_URL}/activity`,
 
   getUsers: `${BASE_URL}/users`,
+  getUser: `${BASE_URL}/users/:id`,
 }

@@ -6,6 +6,7 @@ import { Login } from "./pages/Login"
 import { Register } from "./pages/Register"
 import { Activities } from "./pages/Activities"
 import { EditActivity } from "./pages/EditActivity"
+import { EditUser } from "./pages/EditUser"
 import { CreateActivity } from "./pages/CreateActivity"
 import { MyProfile } from "./pages/MyProfile"
 import { Users } from "./pages/Users"
@@ -31,6 +32,7 @@ render(
             <Route path="/activities" element={<Activities />} />
             <Route path="/activity" element={<CreateActivity />} />
             <Route path="/activity/:id" element={<EditActivity />} />
+            <Route path="/users/:id" element={<EditUser />} />
             <Route path="*" element={<div>404 not found</div>} />
           </Route>
         </Routes>
