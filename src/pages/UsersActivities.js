@@ -7,13 +7,15 @@ import TableHead from "@mui/material/TableHead"
 import TableRow from "@mui/material/TableRow"
 import Paper from "@mui/material/Paper"
 import Container from "@mui/material/Container"
-import { getUsersActivitiesRequest } from "../requests"
+import { getUsersActivitiesRequest, adminDeleteActivity } from "../requests"
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import Chip from "@mui/material/Chip"
 import { format } from "date-fns"
 import { useParams } from "react-router-dom"
 import SimpleBackdrop from "./BackDrop"
+import Button from "@mui/material/Button"
+import DeleteIcon from "@mui/icons-material/Delete"
 
 const useFetch = (id) => {
   const [loading, setLoading] = useState(true)
@@ -49,6 +51,9 @@ const UsersActivitiesComponent = ({ activities, id }) => {
       return "Nepatvirtinta"
     }
   }
+  activities.sort((a, b) => {
+    return new Date(a.date).getTime() - new Date(b.date).getTime()
+  })
 
   console.log(activities)
   return (
@@ -62,6 +67,7 @@ const UsersActivitiesComponent = ({ activities, id }) => {
               <TableCell>Kada sukurtas</TableCell>
               <TableCell>Aprašymas</TableCell>
               <TableCell>Ar Patvirtinta</TableCell>
+              <TableCell>Ištrinti</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -94,6 +100,18 @@ const UsersActivitiesComponent = ({ activities, id }) => {
                     label={chipText(activity.is_confirmed)}
                     color={chipColor(activity.is_confirmed)}
                   />
+                </TableCell>
+                <TableCell>
+                  <Button
+                    variant="outlined"
+                    startIcon={<DeleteIcon />}
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      adminDeleteActivity(activity.id, activity.user_id)
+                    }}
+                  >
+                    Ištrinti
+                  </Button>
                 </TableCell>
               </TableRow>
             ))}

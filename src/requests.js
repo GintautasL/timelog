@@ -150,11 +150,35 @@ export const adminActivityRequest = (id) =>
       console.log(error)
     })
 
-export const adminEditActivity = (data, id, user_id) =>
+export const adminEditActivity = (
+  data,
+  id,
+  user_id // not done
+) =>
   axios
     .put(urls.adminGetSingleActivity.replace(":id", id), data)
     .then(function (response) {
       //window.location.href = `/users/${id}` //change
+      window.location.href = `/users/${user_id}/activities`
+    })
+    .catch(function (error) {
+      console.log(error)
+    })
+
+export const deleteMyActivity = (id) =>
+  axios
+    .delete(urls.userGetSingleActivity.replace(":id", id))
+    .then(function (response) {
+      window.location.href = "/activities"
+    })
+    .catch(function (error) {
+      console.log(error)
+    })
+
+export const adminDeleteActivity = (id, user_id) =>
+  axios
+    .delete(urls.adminGetSingleActivity.replace(":id", id))
+    .then(function (response) {
       window.location.href = `/users/${user_id}/activities`
     })
     .catch(function (error) {
