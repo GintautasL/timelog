@@ -22,16 +22,18 @@ import Stack from "@mui/material/Stack"
 import AdapterDateFns from "@mui/lab/AdapterDateFns"
 import LocalizationProvider from "@mui/lab/LocalizationProvider"
 import { format } from "date-fns"
+import Switch from "@mui/material/Switch"
+import Tooltip from "@mui/material/Tooltip"
 import SimpleBackdrop from "./BackDrop"
 
-import { myActivityRequest, editMyActivity } from "../requests"
+import { adminActivityRequest, adminEditActivity } from "../requests"
 
 const useFetch = (id) => {
   const [loading, setLoading] = useState(true)
   const [activity, setActivity] = useState({})
 
   const getActivity = async () => {
-    const activity = await myActivityRequest(id)
+    const activity = await adminActivityRequest(id)
     setActivity(activity)
     setLoading(false)
   }
@@ -42,35 +44,20 @@ const useFetch = (id) => {
   return { loading, activity }
 }
 
-const EditActivityComponent = ({ activity, id }) => {
+const AdminEditActivityComponent = ({ activity, id }) => {
   const { control, handleSubmit } = useForm({
     defaultValues: {
       date: new Date(activity.date),
       timeSpent: activity.timeSpent,
       description: activity.description,
+      is_confirmed: activity.is_confirmed,
     },
   })
   console.log(new Date(activity.date))
 
-  const chipColor = () => {
-    if (activity.is_confirmed == 1) {
-      return "success"
-    } else {
-      return "error"
-    }
-  }
-
-  const chipText = () => {
-    if (activity.is_confirmed == 1) {
-      return "Patvirtintas"
-    } else {
-      return "Nepatvirtintas"
-    }
-  }
-
   const onSubmit = handleSubmit(async (data) => {
     const finalData = { ...data, date: format(data.date, "yyyy-MM-dd") }
-    await editMyActivity(finalData, id)
+    await adminEditActivity(finalData, id, activity.user_id)
   })
 
   return (
@@ -148,24 +135,24 @@ const EditActivityComponent = ({ activity, id }) => {
                   )}
                 />
               </Grid>
-
-              <Grid item xs={4} sx={{ paddingLeft: 50 }}>
+              <Grid item xs={12}>
                 <Controller
+                  label="patvirtinti"
                   name="is_confirmed"
                   control={control}
                   render={({ field }) => (
-                    <Chip
-                      label={chipText(activity.is_confirmed)}
-                      size="50px"
-                      sx={{
-                        height: 54,
-                        width: 128,
-                        fontSize: 16,
-                        ml: 8,
-                      }}
-                      color={chipColor(activity.is_confirmed)}
-                      {...field}
-                    />
+                    <Tooltip title="Patvirtinti">
+                      <Switch
+                        onChange={(e) => field.onChange(e.target.checked)}
+                        checked={Boolean(field.value)}
+                        color="success"
+                        sx={{
+                          ml: 2,
+                          mt: 1,
+                        }}
+                        {...field}
+                      />
+                    </Tooltip>
                   )}
                 />
               </Grid>
@@ -184,13 +171,13 @@ const EditActivityComponent = ({ activity, id }) => {
   )
 }
 
-export const EditActivity = () => {
+export const AdminEditActivity = () => {
   const { id } = useParams()
   const { loading, activity } = useFetch(id)
   console.log(loading, activity, id)
 
   return !loading ? (
-    <EditActivityComponent activity={activity} id={id} />
+    <AdminEditActivityComponent activity={activity} id={id} />
   ) : (
     <SimpleBackdrop />
   )

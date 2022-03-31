@@ -16,6 +16,7 @@ import { Paper } from "@mui/material"
 import { useForm, Controller } from "react-hook-form"
 import { useEffect, useState } from "react"
 import Chip from "@mui/material/Chip"
+import SimpleBackdrop from "./BackDrop"
 
 import { myProfileRequest, editMyProfile } from "../requests"
 
@@ -204,5 +205,9 @@ export const MyProfile = () => {
   const { loading, profile } = useFetch()
   console.log(loading, profile)
 
-  return !loading ? <MyProfileComponent profile={profile} /> : "Loading..."
+  return !loading ? (
+    <MyProfileComponent profile={profile} />
+  ) : (
+    <SimpleBackdrop />
+  )
 }

@@ -128,3 +128,35 @@ export const editUserRequest = (data, id) =>
     .catch(function (error) {
       console.log(error)
     })
+
+export const getUsersActivitiesRequest = (id, data) =>
+  axios
+    .get(urls.getUsersActivities.replace(":id", id), data)
+    .then(function (response) {
+      console.log(response.data)
+      return response.data
+    })
+    .catch(function (error) {
+      console.log(error)
+    })
+
+export const adminActivityRequest = (id) =>
+  axios
+    .get(urls.adminGetSingleActivity.replace(":id", id))
+    .then(function (response) {
+      return response.data
+    })
+    .catch(function (error) {
+      console.log(error)
+    })
+
+export const adminEditActivity = (data, id, user_id) =>
+  axios
+    .put(urls.adminGetSingleActivity.replace(":id", id), data)
+    .then(function (response) {
+      //window.location.href = `/users/${id}` //change
+      window.location.href = `/users/${user_id}/activities`
+    })
+    .catch(function (error) {
+      console.log(error)
+    })

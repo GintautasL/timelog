@@ -24,6 +24,7 @@ import LocalizationProvider from "@mui/lab/LocalizationProvider"
 import { format } from "date-fns"
 import Switch from "@mui/material/Switch"
 import Tooltip from "@mui/material/Tooltip"
+import SimpleBackdrop from "./BackDrop"
 
 import { getUserRequest, editUserRequest } from "../requests"
 
@@ -155,7 +156,6 @@ const EditUserComponent = ({ user, id }) => {
 
               <Grid item xs={4}>
                 <Controller
-                  label="patvirtinti"
                   name="is_confirmed"
                   control={control}
                   render={({ field }) => (
@@ -195,5 +195,9 @@ export const EditUser = () => {
   const { loading, user } = useFetch(id)
   console.log(loading, user, id)
 
-  return !loading ? <EditUserComponent user={user} id={id} /> : "Loading..."
+  return !loading ? (
+    <EditUserComponent user={user} id={id} />
+  ) : (
+    <SimpleBackdrop />
+  )
 }

@@ -14,6 +14,7 @@ import Chip from "@mui/material/Chip"
 import { format } from "date-fns"
 import Button from "@mui/material/Button"
 import EditIcon from "@mui/icons-material/Edit"
+import SimpleBackdrop from "./BackDrop"
 
 const useFetch = () => {
   const [loading, setLoading] = useState(true)
@@ -55,7 +56,7 @@ export const Users = () => {
   return (
     <Container maxWidth="xl" sx={{ marginTop: 3 }}>
       {loading ? (
-        <h2>loading...</h2>
+        <SimpleBackdrop />
       ) : (
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -75,7 +76,7 @@ export const Users = () => {
                   key={user.id}
                   hover
                   onClick={() => {
-                    navigate(`/user/${user.id}`) // change this
+                    navigate(`/users/${user.id}/activities`) // change this
                   }}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >

@@ -12,6 +12,7 @@ import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import Chip from "@mui/material/Chip"
 import { format } from "date-fns"
+import SimpleBackdrop from "./BackDrop"
 
 const useFetch = () => {
   const [loading, setLoading] = useState(true)
@@ -53,7 +54,7 @@ export const Activities = () => {
   return (
     <Container maxWidth="xl" sx={{ marginTop: 3 }}>
       {loading ? (
-        <h2>loading...</h2>
+        <SimpleBackdrop />
       ) : (
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
