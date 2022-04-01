@@ -68,6 +68,7 @@ export const Users = () => {
                 <TableCell>Pašto adresas</TableCell>
                 <TableCell>Ar Patvirtinta</TableCell>
                 <TableCell>Redaguoti</TableCell>
+                <TableCell>Statistika</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -102,6 +103,17 @@ export const Users = () => {
                       }}
                     >
                       Redaguoti
+                    </Button>
+                  </TableCell>
+                  <TableCell>
+                    <Button
+                      variant="outlined"
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        navigate(`/users/${user.id}/statistics`)
+                      }}
+                    >
+                      Statistika
                     </Button>
                   </TableCell>
                 </TableRow>

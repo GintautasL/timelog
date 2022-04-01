@@ -1,5 +1,6 @@
 import axios from "axios"
 import { urls } from "./config"
+import queryString from "query-string"
 // axios.defaults.headers.post["Access-Control-Allow-Origin"] = "*"
 
 export const loginRequest = (data) =>
@@ -129,9 +130,13 @@ export const editUserRequest = (data, id) =>
       console.log(error)
     })
 
-export const getUsersActivitiesRequest = (id, data) =>
+export const getUsersActivitiesRequest = (id, query) =>
   axios
-    .get(urls.getUsersActivities.replace(":id", id), data)
+    .get(
+      `${urls.getUsersActivities.replace(":id", id)}${queryString.stringify(
+        query
+      )}`
+    )
     .then(function (response) {
       console.log(response.data)
       return response.data
@@ -180,6 +185,21 @@ export const adminDeleteActivity = (id, user_id) =>
     .delete(urls.adminGetSingleActivity.replace(":id", id))
     .then(function (response) {
       window.location.href = `/users/${user_id}/activities`
+    })
+    .catch(function (error) {
+      console.log(error)
+    })
+
+export const getUsersStatisticsRequest = (id, query) =>
+  axios
+    .get(
+      `${urls.getUsersStatistics.replace(":id", id)}?${queryString.stringify(
+        query
+      )}`
+    )
+    .then(function (response) {
+      console.log(response.data)
+      return response.data
     })
     .catch(function (error) {
       console.log(error)

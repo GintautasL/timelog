@@ -10,6 +10,7 @@ import { AdminEditActivity } from "./pages/AdminEditActivity"
 import { EditUser } from "./pages/EditUser"
 import { CreateActivity } from "./pages/CreateActivity"
 import { UsersActivities } from "./pages/UsersActivities"
+import { UserStatistics } from "./pages/UserStatistics"
 import { MyProfile } from "./pages/MyProfile"
 import { Users } from "./pages/Users"
 import { createTheme, ThemeProvider } from "@mui/material/styles"
@@ -35,6 +36,7 @@ render(
             <Route path="/activity" element={<CreateActivity />} />
             <Route path="/activity/:id" element={<EditActivity />} />
             <Route path="/users/:id" element={<EditUser />} />
+            <Route path="/users/:id/statistics" element={<UserStatistics />} />
             <Route path="/users/:id/activities" element={<UsersActivities />} />
             <Route path="/activities/:id" element={<AdminEditActivity />} />
             <Route path="*" element={<div>404 not found</div>} />
