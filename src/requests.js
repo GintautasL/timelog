@@ -6,10 +6,16 @@ import queryString from "query-string"
 export const loginRequest = (data) =>
   axios
     .post(urls.login, data)
-    .then(function (response) {
+    .then(async function (response) {
       console.log(response.data.token)
       window.localStorage.setItem("token", response.data.token)
       window.localStorage.setItem("refreshToken", response.data.refreshToken)
+      const data = await myProfileRequest()
+      window.localStorage.setItem(
+        "role",
+        data.roles[data.roles.length - 1].title
+      )
+
       window.location.href = "/"
     })
     .catch(function (error) {

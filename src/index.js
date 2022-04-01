@@ -18,6 +18,8 @@ import * as Interceptors from "./interceptors"
 import { MainLayout } from "./layouts/MainLayout"
 import AdapterDateFns from "@mui/lab/AdapterDateFns"
 import LocalizationProvider from "@mui/lab/LocalizationProvider"
+import { PrivateRoute } from "./components/Routes/PrivateRoute"
+import { AdminRoute } from "./components/Routes/AdminRoute"
 
 const theme = createTheme()
 
@@ -30,15 +32,39 @@ render(
           <Route element={<MainLayout />}>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/user" element={<MyProfile />} />
-            <Route path="/users" element={<Users />} />
-            <Route path="/activities" element={<Activities />} />
-            <Route path="/activity" element={<CreateActivity />} />
-            <Route path="/activity/:id" element={<EditActivity />} />
-            <Route path="/users/:id" element={<EditUser />} />
-            <Route path="/users/:id/statistics" element={<UserStatistics />} />
-            <Route path="/users/:id/activities" element={<UsersActivities />} />
-            <Route path="/activities/:id" element={<AdminEditActivity />} />
+            <Route path="/user" element={<PrivateRoute />}>
+              <Route path="/user" element={<MyProfile />} />
+            </Route>
+            <Route path="/users" element={<AdminRoute />}>
+              <Route path="/users" element={<Users />} />
+            </Route>
+            <Route path="/activities" element={<PrivateRoute />}>
+              <Route path="/activities" element={<Activities />} />
+            </Route>
+            <Route path="/activity" element={<PrivateRoute />}>
+              <Route path="/activity" element={<CreateActivity />} />
+            </Route>
+            <Route path="/activity/:id" element={<PrivateRoute />}>
+              <Route path="/activity/:id" element={<EditActivity />} />
+            </Route>
+            <Route path="/users/:id" element={<AdminRoute />}>
+              <Route path="/users/:id" element={<EditUser />} />
+            </Route>
+            <Route path="/users/:id/statistics" element={<AdminRoute />}>
+              <Route
+                path="/users/:id/statistics"
+                element={<UserStatistics />}
+              />
+            </Route>
+            <Route path="/users/:id/activities" element={<AdminRoute />}>
+              <Route
+                path="/users/:id/activities"
+                element={<UsersActivities />}
+              />
+            </Route>
+            <Route path="/activities/:id" element={<AdminRoute />}>
+              <Route path="/activities/:id" element={<AdminEditActivity />} />
+            </Route>
             <Route path="*" element={<div>404 not found</div>} />
           </Route>
         </Routes>

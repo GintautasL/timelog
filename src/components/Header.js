@@ -13,11 +13,17 @@ import Tooltip from "@mui/material/Tooltip"
 import MenuItem from "@mui/material/MenuItem"
 
 import { logoutRequest, myProfileRequest, getMyActivities } from "../requests"
+import { ROLES } from "../constants"
 
-const pages = ["Mano veiklos", "Pridėti naują", "Darbuotojai"]
+const getPages = (role) => [
+  "Mano veiklos",
+  "Pridėti naują",
+  ...(role == ROLES.admin ? ["Darbuotojai"] : []),
+]
 const settings = ["Profile", "Logout"]
 
 export const Header = () => {
+  const role = window.localStorage.getItem("role")
   const [anchorElNav, setAnchorElNav] = React.useState(null)
   const [anchorElUser, setAnchorElUser] = React.useState(null)
 
@@ -94,7 +100,7 @@ export const Header = () => {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) => (
+              {getPages(role).map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
@@ -110,7 +116,7 @@ export const Header = () => {
             LOGO
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
+            {getPages(role).map((page) => (
               <Button
                 key={page}
                 onClick={() => handleCloseNavMenu(page)}
