@@ -176,6 +176,20 @@ export const adminEditActivity = (
       console.log(error)
     })
 
+export const adminConfirmActivity = (
+  id,
+  user_id // not done
+) =>
+  axios
+    .put(urls.adminConfirmActivity.replace(":id", id), user_id)
+    .then(function (response) {
+      //window.location.href = `/users/${id}` //change
+      window.location.href = `/users/${user_id}/activities`
+    })
+    .catch(function (error) {
+      console.log(error)
+    })
+
 export const deleteMyActivity = (id) =>
   axios
     .delete(urls.userGetSingleActivity.replace(":id", id))

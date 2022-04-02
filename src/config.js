@@ -15,4 +15,5 @@ export const urls = {
   getUsersActivities: `${BASE_URL}/users/:id/activities`,
   getUsersStatistics: `${BASE_URL}/users/:id/statistics`,
   adminGetSingleActivity: `${BASE_URL}/activities/:id`,
+  adminConfirmActivity: `${BASE_URL}/activities/:id/confirm`,
 }
