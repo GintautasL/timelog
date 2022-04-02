@@ -16,7 +16,7 @@ export const loginRequest = (data) =>
         data.roles[data.roles.length - 1].title
       )
 
-      window.location.href = "/"
+      window.location.href = "/activities"
     })
     .catch(function (error) {
       console.log(error)

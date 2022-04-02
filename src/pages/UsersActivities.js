@@ -58,7 +58,7 @@ const UsersActivitiesComponent = ({ activities, id }) => {
       return "Nepatvirtinta"
     }
   }
-  activities.sort((a, b) => {
+  activities.sort((b, a) => {
     return new Date(a.date).getTime() - new Date(b.date).getTime()
   })
 

@@ -38,7 +38,7 @@ const useFetch = () => {
 export const Activities = () => {
   const navigate = useNavigate()
   const { loading, activities } = useFetch()
-  activities.sort((a, b) => {
+  activities.sort((b, a) => {
     return new Date(a.date).getTime() - new Date(b.date).getTime()
   })
 

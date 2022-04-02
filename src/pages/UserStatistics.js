@@ -28,10 +28,14 @@ import {
   ValueAxis,
 } from "@devexpress/dx-react-chart-material-ui"
 import { AppRegistrationOutlined } from "@mui/icons-material"
+import DatePicker from "@mui/lab/DatePicker"
+import { TextField } from "@mui/material"
+import Grid from "@mui/material/Grid"
 
-const useFetch = (id, query) => {
+const useFetch = (id, date) => {
   const [loading, setLoading] = useState(true)
   const [activities, setActivities] = useState([])
+  const query = { year: date.getFullYear(), month: date.getMonth() + 1 }
 
   const getActivities = async () => {
     const activities = await getUsersStatisticsRequest(id, query)
@@ -41,7 +45,7 @@ const useFetch = (id, query) => {
 
   useEffect(() => {
     getActivities()
-  }, [])
+  }, [date])
   return { loading, activities }
 }
 
@@ -58,7 +62,7 @@ const getMonthDaysObject = (year, month) => {
 
 const getProcessedActivities = (activities, year, month) => {
   const final = getMonthDaysObject(year, month)
-  activities.forEach((activity) => {
+  activities?.forEach((activity) => {
     const formatedActivityDate = format(new Date(activity?.date), "MM-dd")
     if (final[formatedActivityDate]) {
       final[formatedActivityDate].timeSpent += activity.timeSpent
@@ -67,7 +71,7 @@ const getProcessedActivities = (activities, year, month) => {
   return Object.values(final)
 }
 
-const UserStatisticsComponent = ({ activities, id }) => {
+const UserStatisticsComponent = ({ activities, id, value, setValue }) => {
   const navigate = useNavigate()
 
   activities.sort((a, b) => {
@@ -75,15 +79,35 @@ const UserStatisticsComponent = ({ activities, id }) => {
   })
   console.log("activities")
   console.log(activities)
+  console.log("value")
+  //console.log(value.getFullYear())
+  //console.log(value.getMonth())
 
   return (
     <Container maxWidth="xl" sx={{ marginTop: 3 }}>
       <Paper>
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={6} ml={2}>
+            <DatePicker
+              views={["month", "year"]}
+              label="Year and Month"
+              minDate={new Date("2022-01-01")}
+              maxDate={new Date("2033-06-01")}
+              value={value}
+              onChange={(newValue) => {
+                setValue(newValue)
+              }}
+              renderInput={(params) => (
+                <TextField {...params} helperText={null} />
+              )}
+            />
+          </Grid>
+        </Grid>
         <Chart data={activities}>
           <ArgumentAxis></ArgumentAxis>
           <ValueAxis max={30}></ValueAxis>
           <BarSeries valueField="timeSpent" argumentField="date" />
-          <Title text="Statistics" />
+          <Title text="Darbuotojo statistika" />
         </Chart>
       </Paper>
     </Container>
@@ -92,18 +116,21 @@ const UserStatisticsComponent = ({ activities, id }) => {
 
 export const UserStatistics = () => {
   const { id } = useParams()
-  const { loading, activities } = useFetch(id, { year: 2022, month: 4 })
-  console.log(loading, activities, id)
-
-  //   activities.map((activity) => {
-  //     ;(data.date = format(new Date(activity?.date), "yyyy-MM-dd")),
-  //       (data.timeSpent = myActivityRequest.timeSpent)
-  //   })
+  const [value, setValue] = useState(new Date()) //date
+  const { loading, activities } = useFetch(id, value)
+  console.log(loading, activities, id, value)
+  console.log("test")
 
   return !loading ? (
     <UserStatisticsComponent
-      activities={getProcessedActivities(activities, 2022, 4)}
+      activities={getProcessedActivities(
+        activities,
+        value.getFullYear(),
+        value.getMonth() + 1
+      )}
       id={id}
+      value={value}
+      setValue={setValue}
     />
   ) : (
     <SimpleBackdrop />
