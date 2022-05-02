@@ -1,4 +1,4 @@
-const BASE_URL = `http://d8db-5-20-254-54.ngrok.io`
+const BASE_URL = `https://d8db-5-20-254-54.ngrok.io`
 
 export const urls = {
   login: `${BASE_URL}/login`,
