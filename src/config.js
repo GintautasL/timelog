@@ -1,4 +1,4 @@
-const BASE_URL = `http://localhost:8080`
+const BASE_URL = `https://quiet-malabi-b14b26.netlify.app/`
 
 export const urls = {
   login: `${BASE_URL}/login`,
